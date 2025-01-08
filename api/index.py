@@ -30,7 +30,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     
     return {
             "birthday": birthday,
-            "연나이": str(age),
+            "age": str(age),
             "만나이": str(man_age),
             "basedate": str(today),
             "생일이 지났습니까?": bday_chek ,

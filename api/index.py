@@ -19,7 +19,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     :return: 생년월일 및 만나이를 포함한 JSON 응답
     """
     today = date.today()
-    birth_date = datetime.strptime(birthday, "%Y-%m-%d").date
+    birth_date = datetime.strptime(birthday, "%y-%m-%d").date
     age = today.year - birth_date.year
     #todo 생일 지난 여부 (만나이계산) 관련 로직 개발 필요. 
     return {

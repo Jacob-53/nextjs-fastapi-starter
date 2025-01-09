@@ -21,8 +21,8 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     today = date.today()
     birth_date = datetime.strptime(birthday, "%Y-%m-%d").date()
     age = today.year - birth_date.year
-    zod=["말띠","양띠","원숭이띠","닭띠","개띠","돼지띠","쥐띠","소띠","호랑이띠","토끼띠","용띠","뱀띠"]
-    agezod=zod[int(birth_date.year)%12]
+    zod = ["말띠","양띠","원숭이띠","닭띠","개띠","돼지띠","쥐띠","소띠","호랑이띠","토끼띠","용띠","뱀띠"]
+    agezod = zod[int(birth_date.year)%12]
     if (today.month,today.day)>=(birth_date.month,birth_date.day):
         age = age
         bday_chek = "네"
@@ -32,10 +32,10 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     
     return {
             "birthday": birthday,
-            "age": str(age)+ str(agezod)
+            "age": str(age) + str(agezod)
 	    #"띠": agezod
             #"만나이": str(man_age),
             "basedate": str(today),
-            "생일이 지났습니까?": bday_chek ,
+            #"생일이 지났습니까?": bday_chek ,
             "message": "Age calculated successfully!"
             }

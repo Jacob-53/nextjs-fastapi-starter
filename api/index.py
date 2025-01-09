@@ -22,16 +22,16 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     birth_date = datetime.strptime(birthday, "%Y-%m-%d").date()
     age = today.year - birth_date.year
     if (today.month,today.day)>=(birth_date.month,birth_date.day):
-        man_age = age
+        age = age
         bday_chek = "네"
     else:
-        man_age = age - 1
+        age = age - 1
         bday_chek = "아니요"
     
     return {
             "birthday": birthday,
             "age": str(age),
-            "만나이": str(man_age),
+            #"만나이": str(man_age),
             "basedate": str(today),
             "생일이 지났습니까?": bday_chek ,
             "message": "Age calculated successfully!"

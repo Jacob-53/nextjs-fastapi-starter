@@ -21,7 +21,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     today = date.today()
     birth_date = datetime.strptime(birthday, "%Y-%m-%d").date()
     age = today.year - birth_date.year
-    zod = ["말띠","양띠","원숭이띠","닭띠","개띠","돼지띠","쥐띠","소띠","호랑이띠","토끼띠","용띠","뱀띠"]
+    zod = ["원숭이띠","닭띠","개띠","돼지띠","쥐띠","소띠","호랑이띠","토끼띠","용띠","뱀띠","말","양"]
     agezod = zod[int(birth_date.year)%12]
     if (today.month,today.day)>=(birth_date.month,birth_date.day):
         age = age

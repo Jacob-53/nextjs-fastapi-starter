@@ -23,6 +23,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     today = date.today()
     birth_date = datetime.strptime(birthday, "%Y-%m-%d").date()
     age = today.year - birth_date.year
+    yage = today.year - birth_date.year
     zod = ["🐒 Monkey 원숭이띠","🐓 Rooster 닭띠","🐕 Dog 개띠","🐖 Pig 돼지띠","🐀 Rat 쥐띠","🐂 Ox 소띠","🐅 Tiger 호랑이띠","🐇 Rabbit 토끼띠","🐉 Dragon 용띠","🐍 Snake 뱀띠","🐎 Horse 말띠","🐐 Goat 양띠"]
     
     pool ={
@@ -55,9 +56,9 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     
     return {
             "birthday": birthday,
-            "age": f"{age}살  -  한국나이는 : {kage} 살  -   당신의 띠는: {agezod}    -  발표자는 : {speaker}",
-            "kage": str(kage),
-	    "speaker":f"{speaker} 입니다",
+            "age": f"만나이는 : {age}살\n연나이는 : {yage}\n한국나이는 : {kage}살\n당신의 띠는 : {agezod}\n발표자는 : {speaker} 입니다",
+            "kage": f"한국나이는 {kage} 입니다",
+            "speaker":f"발표자는 : {speaker} 입니다",
 	    "zodiac": agezod,
  	    #"만나이": str(man_age),
             "basedate": str(today),

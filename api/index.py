@@ -23,8 +23,19 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     age = today.year - birth_date.year
     zod = ["🐒 Monkey 원숭이띠","🐓 Rooster 닭띠","🐕 Dog 개띠","🐖 Pig 돼지띠","🐀 Rat 쥐띠","🐂 Ox 소띠","🐅 Tiger 호랑이띠","🐇 Rabbit 토끼띠","🐉 Dragon 용띠","🐍 Snake 뱀띠","🐎 Horse 말띠","🐐 Goat 양띠"]
     
-     pool={0:"안재영",1:"조성근",2:"배형균",3:"강현룡",4:"전희진",5:"권오준",6:"조민규",7:"백지원",8:"서민혁"}
-     speaker=pool[random.randint(0,8)]
+    pool ={
+   	 0: "안재영",
+   	 1: "조성근",
+   	 2: "배형균",
+    	 3: "강현룡",
+    	 4: "전희진",
+    	 5: "권오준",
+   	 6: "조민규",
+   	 7: "백지원",
+   	 8: "서민혁"
+           }
+     
+    speaker = pool[random.randint(0,8)]
 
     if birth_date.month == 1 or (birth_date.month == 2 and birth_date.day < 4):
         zod_year = birth_date.year-1
@@ -41,12 +52,12 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     
     return {
             "birthday": birthday,
-            "age": f"{age}살   -   당신의 띠는: {agezod}    - 발표자는 : {speaker}",
+            "age": f"{age}살   -   당신의 띠는: {agezod}    -  발표자는 : {speaker}",
             "speaker":f"{speaker} 입니다",
 	    "zodiac": agezod,
  	    #"만나이": str(man_age),
             "basedate": str(today),
-            "bdaypass": bday_chek ,
+            #"bdaypass": bday_chek ,
             "message": "Age calculated successfully!"
 
             }

@@ -59,10 +59,12 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     
     return {
             "birthday": birthday,
-            "age": f"{age}살    연나이는 : {yage}살   한국나이는 : {kage}살           당신의 띠는 : {agezod}        발표자는 : {speaker} 입니다 // 이 서버의 python version : {pver} 입니다 tt{sver} ",
-            "kage": f"한국나이는 {kage} 입니다",
+            "age": f"{age}살 , 연나이는 : {yage}살,  한국나이는 : {kage}살,  당신의 띠는 : {agezod},  발표자는 : {speaker} 입니다 / 이 서버의 python version : {pver} 입니다 ",
+            "yage":f"연나이는 : {yage}살 입니다",
+            "kage": f"한국나이는 {kage}살 입니다",
             "speaker":f"발표자는 : {speaker} 입니다",
 	    "zodiac": agezod,
+            "python version": sver,
  	    #"만나이": str(man_age),
             "basedate": str(today),
             #"bdaypass": bday_chek ,

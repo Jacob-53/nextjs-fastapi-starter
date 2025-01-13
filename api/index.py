@@ -56,7 +56,8 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     else:
         age = age - 1
         bday_chek = "아니요"
-    
+
+
     return {
             "birthday": birthday,
             "age": f"{age}살 , 연나이는 : {yage}살,  한국나이는 : {kage}살,  당신의 띠는 : {agezod},  발표자는 : {speaker} 입니다 / 이 서버의 python version : {pver} 입니다 ",
@@ -64,10 +65,40 @@ def age_calculator(birthday: str) -> Dict[str, str]:
             "kage": f"한국나이는 {kage}살 입니다",
             "speaker":f"발표자는 : {speaker} 입니다",
 	    "zodiac": agezod,
+	    "os-name": get_os_pretty_name(),
+	    "osv-name": read_os_release(),
             "python version": sver,
+            "psys": system,
+            "preles": release,
+            "pvers": version,
  	    #"만나이": str(man_age),
             "basedate": str(today),
             #"bdaypass": bday_chek ,
             "message": "Age calculated successfully!"
 
             }
+
+
+system, release, version = platform.system_alias(platform.system(), platform.release(), platform.version())
+
+def get_os_pretty_name():
+          with open('/etc/os-release','r') as file:
+                  for line in file:
+                          if line.startswith('PRETTY_NAME'):
+                                  return line.split("=")[1].strip().strip('"')
+          return None
+
+def read_os_release():
+    try:
+        with open("/etc/os-release", "r") as k:
+            os_release_info = {}
+            for line in k:
+                key, _, value = line.partition("=")
+                os_release_info[key] = value.strip().strip('"')
+
+        os_name = os_release_info.get("NAME", "Unknown")
+        os_version = os_release_info.get("VERSION", "Unknown")
+        result = str(os_name)+str(os_version)
+        return result
+    except FileNotFoundError:
+        return {"Error": "No /etc/os-release file found"}

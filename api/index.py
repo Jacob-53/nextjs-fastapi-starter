@@ -64,6 +64,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
             "kage": f"한국나이는 {kage}살 입니다",
             "speaker":f"발표자는 : {speaker} 입니다",
 	    "zodiac": agezod,
+	    "os-name": get_os_pretty_name(),
             "python version": sver,
  	    #"만나이": str(man_age),
             "basedate": str(today),
@@ -71,3 +72,11 @@ def age_calculator(birthday: str) -> Dict[str, str]:
             "message": "Age calculated successfully!"
 
             }
+
+
+def get_os_pretty_name():
+          with open('/etc/os-release','r') as file:
+                  for line in file:
+                          if line.startswith('PRETTY_NAME'):
+                                  return line.split("=")[1].strip().strip('"')
+          return None

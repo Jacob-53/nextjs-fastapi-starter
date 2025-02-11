@@ -6,7 +6,22 @@ import sys
 import platform
 import korean_age_calculator as kac
 import pandas as pd
-import numpy as np
+import os
+from dotenv import load_dotenv
+import psycopg
+from psycopg.rows import dict_row
+
+load_dotenv()
+
+DB_CONFIG = { 
+    "dbname": os.getenv("DB_NAME"),
+    "user":os.getenv("DB_USERNAME"),
+    "password":os.getenv("DB_PASSWORD"),
+    "host":os.getenv("DB_HOST"),
+    "port":os.getenv("DB_PORT")                                         
+}
+def get_connection():
+    return psycopg.connect(**DB_CONFIG)
 
 ### Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
@@ -108,8 +123,6 @@ def read_os_release():
 
 @app.get("/api/py/select_all")
 def select_all():
-    import pandas as pd
-    
     df = pd.DataFrame({'과일': ['사과','포도','수박','딸기'],
                     '가격' : [1000,2000,3000,4000],
                     '순위' : pd.Series([1,2,3,4],dtype='int32'),
@@ -117,3 +130,22 @@ def select_all():
                     '판매처' : pd.Categorical(["이마트","롯데마트","코스트코","현대백화점"]),
                     })
     return df.to_dict()
+
+
+@app.get("/api/py/select_table")
+def select_table(): 
+    query="""
+        SELECT
+        lunch_menu.menu_name AS menu,
+        member.name AS ename,
+        lunch_menu.dt
+        FROM member
+        INNER JOIN lunch_menu ON member.id = lunch_menu.member_id
+        ORDER BY lunch_menu.dt DESC"""
+    with psycopg.connect(**DB_CONFIG, row_factory=dict_row) as conn:
+        cur=conn.execute(query)
+        rows = cur.fetchall()
+        return rows
+            #df = pd.DataFrame(rows,columns=['menu','ename','dt'],index=range(1,len(rows)+1))
+        
+            #return df.to_dict()

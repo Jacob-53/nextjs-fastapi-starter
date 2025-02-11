@@ -5,6 +5,8 @@ import random
 import sys
 import platform
 import korean_age_calculator as kac
+import pandas as pd
+import numpy as np
 
 ### Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
@@ -102,3 +104,16 @@ def read_os_release():
         return result
     except FileNotFoundError:
         return {"Error": "No /etc/os-release file found"}
+
+
+@app.get("/api/py/select_all")
+def select_all():
+    import pandas as pd
+    
+    df = pd.DataFrame({'과일': ['사과','포도','수박','딸기'],
+                    '가격' : [1000,2000,3000,4000],
+                    '순위' : pd.Series([1,2,3,4],dtype='int32'),
+                    '맛' : ['맛있어','맛있어','맛있어','맛있어'],
+                    '판매처' : pd.Categorical(["이마트","롯데마트","코스트코","현대백화점"]),
+                    })
+    return df.to_dict()

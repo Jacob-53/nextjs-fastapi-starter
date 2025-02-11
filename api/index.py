@@ -137,8 +137,11 @@ def select_table():
     with psycopg.connect(**DB_CONFIG, row_factory=dict_row) as conn:
         cur=conn.execute("SELECT*FROM view_select_table")
         rows = cur.fetchall()
+        #result=[]
+        #for i in rows:
+            #result.append((i["menu"], i["ename"], i["dt"]))
         return rows
-            #result =[(i["menu"], i["ename"], i["dt"]) for i in rows]
+            #result =[(i["menu"], i["ename"], i["dt"]) for i in rows] # append 한것과 같은 결과
             #df = pd.DataFrame(rows,columns=['menu','ename','dt'],index=range(1,len(rows)+1))
         
             #return df.to_dict()

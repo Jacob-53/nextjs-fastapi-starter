@@ -5,6 +5,23 @@ import random
 import sys
 import platform
 import korean_age_calculator as kac
+import pandas as pd
+import os
+from dotenv import load_dotenv
+import psycopg
+from psycopg.rows import dict_row
+
+load_dotenv()
+
+DB_CONFIG = { 
+    "user": os.getenv("POSTGRES_USER"),
+    "dbname": os.getenv("POSTGRES_DATABASE"),
+    "password": os.getenv("POSTGRES_PASSWORD"),
+    "host": os.getenv("POSTGRES_HOST"),
+    "port": os.getenv("DB_PORT", "5432")                                        
+}
+def get_connection():
+    return psycopg.connect(**DB_CONFIG)
 
 ### Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
@@ -102,3 +119,26 @@ def read_os_release():
         return result
     except FileNotFoundError:
         return {"Error": "No /etc/os-release file found"}
+
+
+@app.get("/api/py/select_all")
+def select_all():
+    df = pd.DataFrame({'과일': ['사과','포도','수박','딸기'],
+                    '가격' : [1000,2000,3000,4000],
+                    '순위' : pd.Series([1,2,3,4],dtype='int32'),
+                    '맛' : ['맛있어','맛있어','맛있어','맛있어'],
+                    '판매처' : pd.Categorical(["이마트","롯데마트","코스트코","현대백화점"]),
+                    })
+    return df.to_dict()
+
+
+@app.get("/api/py/select_table")
+def select_table(): 
+    with psycopg.connect(**DB_CONFIG, row_factory=dict_row) as conn:
+        cur=conn.execute("SELECT*FROM view_select_table")
+        rows = cur.fetchall()
+        return rows
+            #result =[(i["menu"], i["ename"], i["dt"]) for i in rows]
+            #df = pd.DataFrame(rows,columns=['menu','ename','dt'],index=range(1,len(rows)+1))
+        
+            #return df.to_dict()

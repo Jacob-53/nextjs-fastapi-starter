@@ -14,11 +14,11 @@ from psycopg.rows import dict_row
 load_dotenv()
 
 DB_CONFIG = { 
-    "dbname": os.getenv("DB_NAME"),
-    "user":os.getenv("DB_USERNAME"),
-    "password":os.getenv("DB_PASSWORD"),
-    "host":os.getenv("DB_HOST"),
-    "port":os.getenv("DB_PORT")                                         
+    "user": os.getenv("POSTGRES_USER"),
+    "dbname": os.getenv("POSTGRES_DATABASE"),
+    "password": os.getenv("POSTGRES_PASSWORD"),
+    "host": os.getenv("POSTGRES_HOST"),
+    "port": os.getenv("DB_PORT", "5432")                                        
 }
 def get_connection():
     return psycopg.connect(**DB_CONFIG)
@@ -138,6 +138,7 @@ def select_table():
         cur=conn.execute("SELECT*FROM view_select_table")
         rows = cur.fetchall()
         return rows
+            #result =[(i["menu"], i["ename"], i["dt"]) for i in rows]
             #df = pd.DataFrame(rows,columns=['menu','ename','dt'],index=range(1,len(rows)+1))
         
             #return df.to_dict()

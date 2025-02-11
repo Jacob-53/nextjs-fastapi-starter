@@ -134,16 +134,8 @@ def select_all():
 
 @app.get("/api/py/select_table")
 def select_table(): 
-    query="""
-        SELECT
-        lunch_menu.menu_name AS menu,
-        member.name AS ename,
-        lunch_menu.dt
-        FROM member
-        INNER JOIN lunch_menu ON member.id = lunch_menu.member_id
-        ORDER BY lunch_menu.dt DESC"""
     with psycopg.connect(**DB_CONFIG, row_factory=dict_row) as conn:
-        cur=conn.execute(query)
+        cur=conn.execute("SELECT*FROM view_select_table")
         rows = cur.fetchall()
         return rows
             #df = pd.DataFrame(rows,columns=['menu','ename','dt'],index=range(1,len(rows)+1))
